@@ -1,9 +1,9 @@
 :root {
-  --primary: #ccdad1;
-  --secondary: #9caea9;
-  --tertiary: #788585;
-  --light-dark: #6f6866;
-  --dark: #38302e;
+  --primary: #d8d8d8;
+  --secondary: #b1a8aa;
+  --tertiary: #857e84;
+  --light-dark: #666161;
+  --dark: #3a3333;
   --border-radius: .3rem;
 }
 
@@ -12,11 +12,11 @@
 }
 
 body {
-  background-color: var(--primary);
+  background-color: var(--dark);
   margin: 0;
   padding: 0;
   font-family: "IBM Plex Sans", sans-serif;
-  color: var(--dark);
+  color: var(--primary);
   font-size: 16px;
 }
 
@@ -41,7 +41,20 @@ p {
   font-size: 1.2rem;
 }
 
-.btn {
+.dropdown {
+  background-color: var(--primary);
+  color: var(--dark);
+  margin-left: 40px;
+  width: 24rem;
+  padding: .25rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.btn, .card-edit, .btn-back {
   font-size: 1.3rem;
   text-decoration:none;
   padding: 6px 5px;
@@ -49,19 +62,15 @@ p {
   display: block;
   margin: 10px 0;
   border-radius: var(--border-radius);
-  color: var(--primary);
+  color: var(--dark);
+  background-color: var(--primary);
   border: none;
   outline: none;
-  background-color: var(--light-dark);
-  box-shadow: 3px 3px var(--dark);
-  transform: translate(-1px, -1px);
+  transition: background-color .25s;
 }
 
-.btn:hover {
-  color: var(--primary);
-  background-color: var(--tertiary);
-  transform: translate(0, 0);
-  box-shadow: 2px 2px var(--dark);
+.btn:hover, .card-edit:hover, .btn-back:hover {
+  background-color: var(--secondary);
 }
 
 .btn-inline {
@@ -69,26 +78,13 @@ p {
 }
 
 .btn-back {
-  border-radius: var(--border-radius);
-  color: var(--primary);
-  border: none;
-  outline: none;
-  background-color: var(--light-dark);
-  box-shadow: 3px 3px var(--secondary);
-  transform: translate(-1px, -1px);
   display: inline-block;
   width: auto;
+  margin-top: 0;
   margin-bottom: 20px;
   padding: 15px;
   text-decoration: none;
   font-size: 1.2rem;
-}
-
-.btn-back:hover {
-  color: var(--primary);
-  background-color: var(--tertiary);
-  transform: translate(0, 0);
-  box-shadow: 2px 2px var(--dark);
 }
 
 .btn-no-style {
@@ -115,32 +111,36 @@ p {
 }
 
 .hero h1 a {
-  color: var(--dark);
+  color: var(--primary);
+  padding: 0 10px;
+  border-radius: var(--border-radius);
+  box-shadow: 6px 5px var(--secondary);
+  transition: color .25s, box-shadow .25s;
 }
 
 .hero nav {
   float: right;
-  font-size: 3rem;
+  font-size: 2rem;
   justify-content: space-between;
 }
 
 .nav-item {
   margin: 0 1rem;
-  text-shadow: 2px 2px var(--light-dark);
+  transition: color .25s;
 }
 
-.nav-item:hover {
+.nav-item:hover, .hero h1 a:hover {
   color: var(--secondary);
 }
 
 .app-title {
   font-size: 3rem;
-  background-color: var(--primary);
-  color: var(--dark);
-  padding: 0 10px;
+  color: var(--primary);
   display: inline-block;
-  border-radius: var(--border-radius);
-  box-shadow: 6px 5px var(--light-dark);
+}
+
+.hero h1 a:hover {
+  box-shadow: 6px 5px var(--tertiary);
 }
 
 .list-group {
@@ -180,6 +180,11 @@ ol {
   list-style-type: none;
 }
 
+.login-container {
+  display: flex;
+  justify-content:space-evenly;
+}
+
 /* CARDS */
 .comments {
   margin-top: 30px;
@@ -189,7 +194,7 @@ ol {
   margin: 0 0 20px 0;
   display: flex;
   flex-direction: column;
-  border: 3px solid var(--dark);
+  border: 3px solid var(--primary);
   border-radius: var(--border-radius);
   line-height: 1.5;
 }
@@ -205,7 +210,7 @@ ol {
 
 .card-header {
   color: var(--primary);
-  background-color: var(--dark);
+  background-color: var(--light-dark);
   padding: 1%;
   border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
 }
@@ -218,6 +223,7 @@ ol {
   text-decoration: none;
   font-weight: bold;
   color: var(--primary);
+  transition: color .25s;
 }
 
 .card-header a:hover {
@@ -241,27 +247,11 @@ ol {
 }
 
 .card-edit {
-  font-size: 1.3rem;
-  text-decoration:none;
   width: 50%;
   align-self: center;
-  padding: 6px 5px;
   margin: 0 3% 1% 3%;
-  border-radius: var(--border-radius);
-  color: var(--primary);
-  border: none;
-  outline: none;
   float: right;
   text-align: center;
-  background-color: var(--light-dark);
-  box-shadow: 3px 3px var(--dark);
-}
-
-.card-edit:hover {
-  color: var(--primary);
-  background-color: var(--tertiary);
-  transform: translate(0, 0);
-  box-shadow: 2px 2px var(--dark);
 }
 
 .comment-count {
@@ -278,6 +268,10 @@ ol {
 }
 
 /* FORM */
+.form-header, .form-body {
+  padding: 2%;
+}
+
 .form-label,
 .form-input {
   display: block;

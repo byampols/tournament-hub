@@ -1,3 +1,13 @@
+
+<select name="game" id="game" class="dropdown">
+    <option value="all">all</option>
+    <!--<option value="ageofempiresii">Age of Empires II</option>-->
+    {{#each games as |game|}}
+    <option value={{game.title}}>{{game.title}}</option>
+    {{/each}}
+</select>
+
+
 <ol class="post-list">
     {{#each posts as |post|}}
     <li class="card">
