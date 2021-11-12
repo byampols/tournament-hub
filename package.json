@@ -1,5 +1,5 @@
 {
-  "name": "just-tech-news",
+  "name": "tournament-hub",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/byampols/just-tech-news.git"
+    "url": "git+https://github.com/byampols/tournament-hub.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/byampols/just-tech-news/issues"
+    "url": "https://github.com/byampols/tournament-hub/issues"
   },
-  "homepage": "https://github.com/byampols/just-tech-news#readme",
+  "homepage": "https://github.com/byampols/tournament-hub#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",

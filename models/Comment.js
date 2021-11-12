@@ -23,10 +23,10 @@ Comment.init(
                 key: 'id'
             }
         },
-        post_id: {
+        tournament_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'post',
+                model: 'tournament',
                 key: 'id'
             }
         }

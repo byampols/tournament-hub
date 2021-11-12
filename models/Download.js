@@ -1,9 +1,9 @@
 const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Post extends Model {};
+class Download extends Model {};
 
-Post.init(
+Download.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -11,18 +11,14 @@ Post.init(
             primaryKey: true,
             autoIncrement: true
         },
-        title: {
+        download_type: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        post_text: {
-            type: DataTypes.TEXT,
-            allowNull: false,
-        },
-        user_id: {
+        tournament_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'user',
+                model: 'tournament',
                 key: 'id'
             }
         }
@@ -30,8 +26,8 @@ Post.init(
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'post'
+        modelName: 'download'
     }
 );
 
-module.exports = Post;
+module.exports = Download;

@@ -1,30 +1,48 @@
 const User = require('./User');
-const Post = require('./Post');
+const Tournament = require('./Tournament');
 const Comment = require('./Comment');
+const Game = require('./Game');
+const Download = require('./Download');
 
-User.hasMany(Post, {
+User.hasMany(Tournament, {
     foreignKey: 'user_id'
 });
 
-Post.belongsTo(User, {
+Tournament.belongsTo(User, {
     foreignKey: 'user_id'
+});
+
+Game.hasMany(Tournament, {
+    foreignKey: 'game_id'
+});
+
+Tournament.belongsTo(Game, {
+    foreignKey: 'game_id'
+});
+
+Download.belongsTo(Tournament, {
+    foreignKey: 'tournament_id'
+});
+
+Tournament.hasMany(Download, {
+    foreignKey: 'tournament_id'
 });
 
 Comment.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-Comment.belongsTo(Post, {
-    foreignKey: 'post_id'
+Comment.belongsTo(Tournament, {
+    foreignKey: 'tournament_id'
 });
 
 User.hasMany(Comment, {
     foreignKey: 'user_id'
 });
 
-Post.hasMany(Comment, {
-    foreignKey: 'post_id'
+Tournament.hasMany(Comment, {
+    foreignKey: 'tournament_id'
 });
 
 
-module.exports = { User, Post, Comment };
+module.exports = { User, Tournament, Comment, Game, Download };
