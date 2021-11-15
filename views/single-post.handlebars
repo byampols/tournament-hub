@@ -1,12 +1,12 @@
 <div class="card">
-{{> post-info post}}
+{{> post-info tournament}}
 </div>
 
 {{#if loggedIn}}
 {{> comment-form}}
 {{/if}}
 
-{{> comments post.comments}}
+{{> comments tournament.comments}}
 
 {{#if loggedIn}}
 <script src="/javascript/comment.js"></script>

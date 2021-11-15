@@ -79,7 +79,7 @@ router.get('/:id', (req, res) => {
 });
 
 //create tournament
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
     // expects {title: 'King of the Desert 4', tournament_description: 'text', tournament_rules: 'rules', start_date: '2021-11-18', end_date: '2021-12-12', prize_pool: 75000, signup_link: 'https://play.toornament.com/en_GB/tournaments/5040887316076912640/', user_id: 1, game_id: 1}
     Tournament.create({
         title: req.body.title,
