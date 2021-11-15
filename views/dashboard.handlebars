@@ -20,7 +20,7 @@
   <ol>
     {{#each tournaments as |tournament|}}
     <li class="card">
-      {{> post-info post}}
+      {{> post-info tournament}}
       <a class="card-edit" href="/dashboard/edit/{{tournament.id}}" class="edit-link">Edit post</a>
     </li>
     {{/each}}

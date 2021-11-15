@@ -3,7 +3,7 @@ async function commentFormHandler(event) {
 
     const comment_text = document.querySelector('textarea[name="comment-body"]').value.trim();
 
-    const post_id = window.location.toString().split('/')[
+    const tournament_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
     ];
 
@@ -11,13 +11,16 @@ async function commentFormHandler(event) {
         const response = await fetch('/api/comments', {
             method: 'POST',
             body: JSON.stringify({
-                post_id,
+                tournament_id,
                 comment_text
             }),
             headers: {'Content-Type': 'application/json'}
         });
 
-        response.ok ? document.location.reload() : alert(response.statusText);
+        response.ok ? (
+            document.location.reload(),
+            document.querySelector('textarea[name="comment-body"]').value = ""
+            ) : alert(response.statusText);
     }
 }
 

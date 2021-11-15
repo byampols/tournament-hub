@@ -28,7 +28,7 @@ h5,
 h6 {
   font-weight: 700;
   margin: 0;
-  color: var(--dark);
+  color: var(--primary);
   line-height: 1.25;
 }
 
@@ -54,7 +54,7 @@ p {
   text-align: center;
 }
 
-.btn, .card-edit, .btn-back {
+.btn, .card-edit, .btn-back, .card-signup {
   font-size: 1.3rem;
   text-decoration:none;
   padding: 6px 5px;
@@ -69,7 +69,7 @@ p {
   transition: background-color .25s;
 }
 
-.btn:hover, .card-edit:hover, .btn-back:hover {
+.btn:hover, .card-edit:hover, .btn-back:hover, .card-signup:hover {
   background-color: var(--secondary);
 }
 
@@ -209,10 +209,15 @@ ol {
 }
 
 .card-header {
+  font-weight: bold;
   color: var(--primary);
   background-color: var(--light-dark);
   padding: 1%;
   border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
+}
+
+.tournament-header {
+  font-size: 1.25rem;
 }
 
 .card-header-comment {
@@ -221,7 +226,6 @@ ol {
 
 .card-header a {
   text-decoration: none;
-  font-weight: bold;
   color: var(--primary);
   transition: color .25s;
 }
@@ -234,6 +238,11 @@ ol {
   float: right;
 }
 
+.card-subheader {
+  font-size: 1.15rem;
+  font-weight: normal;
+}
+
 .card-body {
   padding: 1% 1%;
 }
@@ -244,6 +253,38 @@ ol {
 
 .card-body-comment {
   padding: 1% 1%;
+}
+
+.card-section h3 {
+  font-size: 1.5rem;
+}
+
+.card-section:not(:first-child) {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  border-top: thick solid var(--secondary);
+}
+
+.downloads {
+  list-style-type: circle;
+  margin: .5% 0 0 0;
+}
+
+.downloads a {
+  text-decoration: none;
+  color: var(--primary);
+  font-style: italic;
+  transition: color .25s;
+}
+
+.downloads a:hover {
+  color: var(--secondary);
+}
+
+.card-signup {
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
 }
 
 .card-edit {
@@ -259,12 +300,12 @@ ol {
 }
 
 .comment-count a {
-  color: var(--dark);
-  transition: color .1s;
+  color: var(--primary);
+  transition: color .25s;
 }
 
 .comment-count a:hover {
-  color: var(--light-dark)
+  color: var(--secondary)
 }
 
 /* FORM */

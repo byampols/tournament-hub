@@ -30,7 +30,56 @@ router.get('/', (req, res) => {
             }
         ]
     }).then(dbTournamentData => {
-        const tournaments = dbTournamentData.map(post => post.get({plain: true}));
+        Game.findAll({
+            attributes:['id', 'title']
+        }).then(dbGameData => {
+            const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
+            const games = dbGameData.map(game => game.get({plain: true}));
+            res.render('homepage', {
+                tournaments,
+                games,
+                loggedIn: req.session.loggedIn
+            })
+        })
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+//get only one game
+router.get('/:game', (req, res) => {
+    console.log(req.session);
+    Tournament.findAll({
+        where: {
+            id: req.params.id
+        },
+        attributes: ['id', 'title', 'tournament_description', 'tournament_rules', 'start_date', 'end_date', 'prize_pool', 'signup_link','created_at'],
+        order: [['created_at', 'DESC']],
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'tournament_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: Download,
+                attributes: ['id', 'download_type', 'download_link', 'tournament_id']
+            },
+            {
+                model: User,
+                attributes: ['username']
+            },
+            {
+                model: Game,
+                attributes: ['title']
+            }
+        ]
+    }).then(dbTournamentData => {
+        const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
         res.render('homepage', {
             tournaments,
             loggedIn: req.session.loggedIn
@@ -49,7 +98,7 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-router.get('/post/:id', (req, res) => {
+router.get('/tournament/:id', (req, res) => {
     Tournament.findOne({
         where: {
             id: req.params.id

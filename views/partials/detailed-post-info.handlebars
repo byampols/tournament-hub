@@ -1,0 +1,35 @@
+<article class="post">
+    <div class="title card-header  tournament-header">
+        <a href="/tournament/{{id}}">{{game.title}}: {{title}}</a>
+        <span>Posted by {{user.username}} on {{format_date created_at}}</span>
+        <div class="card-subheader">
+            Prize Pool: ${{prize_pool}}
+            <span>
+                Start Date: {{format_date start_date}}
+            </span>
+        </div>
+    </div>
+
+    <div class="meta card-body">
+        <div class="card-section">
+            <h3>Description:</h3>
+            <p>{{tournament_description}}</p>
+        </div>
+        <div class="card-section">
+            <h3>Rules:</h3>
+            <p>{{tournament_rules}}</p>
+        </div>
+        <div class="card-section">
+            <h3>Downloads:</h3>
+            {{#if downloads.length}}
+            <ol class="downloads">
+                {{#each downloads as |download|}}
+                <li><a href="{{download.download_link}}" target="_blank">{{download.download_type}}</a></li>
+                {{/each}}
+            </ol>
+            {{/if}}
+        </div>
+        <a class="card-signup" href="{{signup_link}}" target="_blank">Signup</a>    
+        <!--<span class="comment-count"><a href="/tournament/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a></span>-->
+    </div>
+</article>
