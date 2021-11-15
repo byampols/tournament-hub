@@ -1,21 +1,21 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Download } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
-    Comment.findAll().then(dbCommentData => res.json(dbCommentData)).catch(err => {
+    Download.findAll().then(dbDownloadData => res.json(dbDownloadData)).catch(err => {
         console.log(err);
         res.status(400).json(err);
     });
 });
 
-router.post('/', withAuth, (req, res) => {
+router.post('/', (req, res) => {
     if (req.session) {
-        Comment.create({
-            comment_text: req.body.comment_text,
-            user_id: req.session.user_id,
+        Download.create({
+            download_type: req.body.download_type,
+            download_link: req.body.download_link,
             tournament_id: req.body.tournament_id
-        }).then(dbCommentData => res.json(dbCommentData)).catch(err => {
+        }).then(dbDownloadData => res.json(dbDownloadData)).catch(err => {
             console.log(err);
             res.status(400).json(err);
         });
@@ -23,16 +23,16 @@ router.post('/', withAuth, (req, res) => {
 });
 
 router.delete('/:id', withAuth, (req, res) => {
-    Comment.destroy({
+    Download.destroy({
         where: {
             id: req.params.id
         }
-    }).then(dbCommentData => {
-    if (!dbCommentData) {
+    }).then(dbDownloadData => {
+    if (!dbDownloadData) {
         res.status(404).json({message: 'No comment found with this id'});
         return;
     }
-    res.json(dbCommentData);
+    res.json(dbDownloadData);
     }).catch(err => {
         console.log(err);
         res.status(500).json(err);

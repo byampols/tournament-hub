@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post, Comment } = require('../../models');
+const { User, Tournament, Comment, Game, Download } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 //get api/users
@@ -19,14 +19,28 @@ router.get('/:id', (req, res) => {
             exclude: ['password'],
             include: [
                 {
-                    model: Post,
-                    attributes: ['id', 'title', 'post_text', 'created_at']
+                    model: Tournament,
+                    attributes: ['id', 'title', 'tournament_description', 'tournament_rules', 'start_date', 'end_date', 'prize_pool', 'signup_link','created_at'],
+                    include: [
+                        {
+                            model: Download,
+                            attributes: ['id', 'download_type', 'download_link', 'tournament_id']
+                        },
+                        {
+                            model: User,
+                            attributes: ['username']
+                        },
+                        {
+                            model: Game,
+                            attributes: ['title']
+                        }
+                    ]
                 },
                 {
                     model: Comment,
                     attributes: ['id', 'comment_text', 'created_at'],
                     include: {
-                        model: Post,
+                        model: Tournament,
                         attributes: ['title']
                     }
                 }
@@ -49,15 +63,17 @@ router.get('/:id', (req, res) => {
 
 //post /api/users
 router.post('/', (req, res) => {
-    // expects {username: 'XXX', email: 'YYY@gmail.com', password: 'password1234'}
+    // expects {username: 'XXX', email: 'YYY@gmail.com', password: 'password1234', is_tournament_admin: true}
     User.create({
         username: req.body.username,
         email: req.body.email,
+        is_tournament_admin: req.body.is_tournament_admin,
         password: req.body.password
     }).then(dbUserData => {
         req.session.save(() => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
+            req.session.is_tournament_admin = dbUserData.is_tournament_admin;
             req.session.loggedIn = true;
     
             res.json(dbUserData);

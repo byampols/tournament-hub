@@ -15,8 +15,16 @@ Download.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        download_link: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isUrl: true
+            }
+        },
         tournament_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references: {
                 model: 'tournament',
                 key: 'id'

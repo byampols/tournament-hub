@@ -1,21 +1,19 @@
 const router = require('express').Router();
-const { Comment } = require('../../models');
+const { Game } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
-    Comment.findAll().then(dbCommentData => res.json(dbCommentData)).catch(err => {
+    Game.findAll().then(dbGameData => res.json(dbGameData)).catch(err => {
         console.log(err);
         res.status(400).json(err);
     });
 });
 
-router.post('/', withAuth, (req, res) => {
+router.post('/', (req, res) => {
     if (req.session) {
-        Comment.create({
-            comment_text: req.body.comment_text,
-            user_id: req.session.user_id,
-            tournament_id: req.body.tournament_id
-        }).then(dbCommentData => res.json(dbCommentData)).catch(err => {
+        Game.create({
+            title: req.body.title
+        }).then(dbGameData => res.json(dbGameData)).catch(err => {
             console.log(err);
             res.status(400).json(err);
         });
@@ -23,16 +21,16 @@ router.post('/', withAuth, (req, res) => {
 });
 
 router.delete('/:id', withAuth, (req, res) => {
-    Comment.destroy({
+    Game.destroy({
         where: {
             id: req.params.id
         }
-    }).then(dbCommentData => {
-    if (!dbCommentData) {
+    }).then(dbGameData => {
+    if (!dbGameData) {
         res.status(404).json({message: 'No comment found with this id'});
         return;
     }
-    res.json(dbCommentData);
+    res.json(dbGameData);
     }).catch(err => {
         console.log(err);
         res.status(500).json(err);
