@@ -98,6 +98,16 @@ p {
   display: inline-flex;
 }
 
+.btn-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+
+.btn-half {
+  width: 50%;
+}
+
 .hero {
   padding: 2% 3%;
   background-color: var(--dark);
@@ -287,6 +297,15 @@ ol {
   font-weight: bold;
 }
 
+.tournament-input-row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tournament-input-row div {
+  width: 40%;
+}
+
 .card-edit {
   width: 50%;
   align-self: center;
@@ -321,7 +340,6 @@ ol {
 .form-label {
   font-size: 1.1rem;
   margin: 0 0 0 5px;
-  width: 10%;
 }
 
 .form-input {
@@ -335,15 +353,11 @@ ol {
   font-family: "IBM Plex Sans", sans-serif;
   outline: none;
   border: 2px solid var(--light-dark);
+  background-color: var(--primary);
   border-radius: var(--border-radius);
 }
 
-.form-input-title {
-  width: 30%;
-  height: auto;
-}
-
-.form-input-login {
+.form-input-title, .form-input-login, .form-input-dropdown {
   height: auto;
 }
 

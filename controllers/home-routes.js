@@ -48,11 +48,11 @@ router.get('/', (req, res) => {
 });
 
 //get only one game
-router.get('/:game', (req, res) => {
+router.get('/tournaments/:game_id', (req, res) => {
     console.log(req.session);
     Tournament.findAll({
         where: {
-            id: req.params.id
+            game_id: req.params.game_id
         },
         attributes: ['id', 'title', 'tournament_description', 'tournament_rules', 'start_date', 'end_date', 'prize_pool', 'signup_link','created_at'],
         order: [['created_at', 'DESC']],
@@ -79,11 +79,17 @@ router.get('/:game', (req, res) => {
             }
         ]
     }).then(dbTournamentData => {
-        const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
-        res.render('homepage', {
-            tournaments,
-            loggedIn: req.session.loggedIn
-        });
+        Game.findAll({
+            attributes:['id', 'title']
+        }).then(dbGameData => {
+            const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
+            const games = dbGameData.map(game => game.get({plain: true}));
+            res.render('homepage', {
+                tournaments,
+                games,
+                loggedIn: req.session.loggedIn
+            })
+        })
     }).catch(err => {
         console.log(err);
         res.status(500).json(err);

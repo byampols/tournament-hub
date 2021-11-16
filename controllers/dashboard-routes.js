@@ -33,13 +33,21 @@ router.get('/', withAuth, (req, res) => {
             }
         ]
     }).then(dbTournamentData => {
-        const tournaments = dbTournamentData.map(post => post.get({plain: true}));
-        res.render('dashboard', {tournaments, loggedIn: true});
+        Game.findAll({
+            attributes:['id', 'title']
+        }).then(dbGameData => {
+            const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
+            const games = dbGameData.map(game => game.get({plain: true}));
+            res.render('dashboard', {
+                tournaments,
+                games,
+                loggedIn: req.session.loggedIn
+            })
+        })
     }).catch(err => {
         console.log(err);
         res.status(500).json(err);
-    });
-
+    });  
 });
 
 router.get('/edit/:id', withAuth, (req, res) => {

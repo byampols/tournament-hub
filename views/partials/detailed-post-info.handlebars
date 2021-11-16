@@ -20,8 +20,8 @@
             <p>{{tournament_rules}}</p>
         </div>
         <div class="card-section">
-            <h3>Downloads:</h3>
             {{#if downloads.length}}
+            <h3>Downloads:</h3>
             <ol class="downloads">
                 {{#each downloads as |download|}}
                 <li><a href="{{download.download_link}}" target="_blank">{{download.download_type}}</a></li>

@@ -1,22 +1,93 @@
 <section class="card">
-  <h2 class="card-header">Create New Post</h2>
+  <h2 class="card-header">Create New Tournament</h2>
 
-  <form class="new-post-form card-body">
-    <div>
-      <label for="post-title" class="form-label">Title</label>
-      <input type="text" id="post-title" class="form-input form-input-title" name="post-title" />
+  <form class="new-tournament-form card-body">
+    <div class="tournament-input-row">
+      <div>
+        <label for="title" class="form-label">Title</label>
+        <input type="text" id="title" class="form-input form-input-title" name="title" />
+      </div>
+      <div>
+        <label for="prize-pool" class="form-label">Prize Pool (USD)</label>
+        <input type="text" id="prize-pool" class="form-input form-input-title" name="prize-pool" />
+      </div>
     </div>
-    <div>
-      <label for="post-text" class="form-label">Text</label>
-      <textarea class="form-input" id="post-text" name="post-text"></textarea>
+
+    <div class="tournament-input-row">
+      <div>
+        <label for="start-date" class="form-label">Start Date</label>
+        <input type="date" id="start-date" class="form-input form-input-title" name="start-date" />
+      </div>
+      <div>
+        <label for="end-date" class="form-label">End Date</label>
+        <input type="date" id="endt-date" class="form-input form-input-title" name="end-date" />
+      </div>
     </div>
-    <button type="submit" class="btn">Create</button>
+
+    <div>
+      <label for="tournament-description" class="form-label">Description</label>
+      <textarea class="form-input" id="tournament-description" name="tournament-description"></textarea>
+    </div>
+
+    <div>
+      <label for="tournament-rules" class="form-label">Rules</label>
+      <textarea class="form-input" id="tournament-rules" name="tournament-rules"></textarea>
+    </div>
+
+     <div class="tournament-input-row">
+      <div>
+        <label for="signup-link" class="form-label">Signup Link</label>
+        <input type="url" id="signup-link" class="form-input form-input-title" name="signup-link" />
+      </div>
+      <div>
+        <label for="game" class="form-label">Game</label>
+        <select name="game" id="game" class="dropdown form-input form-input-dropdown">
+          {{#each games as |game|}}
+          <option value={{game.id}}>{{game.title}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-div">
+      <button type="submit" class="btn btn-half">Create</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2 class="card-header">Add Downloads to Tournament</h2>
+
+  <form class="new-download-form card-body">
+    <div>
+      <label for="tournament" class="form-label">Tournament</label>
+      <select name="tournament" id="tournament" class="dropdown form-input form-input-dropdown">
+        {{#each tournaments as |tournament|}}
+        <option value={{tournament.id}}>{{tournament.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="tournament-input-row">
+      <div>
+        <label for="download-type" class="form-label">Download Description</label>
+        <input type="text" id="download-type" class="form-input form-input-title" name="download-type" />
+      </div>
+      <div>
+        <label for="download-link" class="form-label">Download Link</label>
+        <input type="url" id="download-link" class="form-input form-input-title" name="download-link" />
+      </div>
+    </div>
+
+    <div class="btn-div">
+      <button type="submit" class="btn btn-half">Add</button>
+    </div>
   </form>
 </section>
 
 {{#if tournaments.length}}
 <section>
-  <h2>Your Posts</h2>
+  <h2>Your Tournaments</h2>
   <ol>
     {{#each tournaments as |tournament|}}
     <li class="card">
@@ -28,4 +99,5 @@
 </section>
 {{/if}}
 
-<script src="/javascript/add-post.js"></script>
+<script src="/javascript/add-tournament.js"></script>
+<script src="/javascript/add-download.js"></script>
