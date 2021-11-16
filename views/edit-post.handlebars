@@ -2,34 +2,100 @@
   <a href="/dashboard" class="btn-back"> &larr; Back to Dashboard</a>
   <section class="card">
     <h2 class="card-header">
-      Edit Post
+      Edit Tournament
     </h2>
     <form class="edit-post-form card-body">
+        <form class="new-tournament-form card-body">
+    <div class="tournament-input-row">
       <div>
-        <div>
-          <label for="post-title" class="form-label">Title</label>
-          <input name="post-title" type="text" class="form-input form-input-title" value="{{post.title}}" />
-        </div>
-        <div>
-                <label for="post-text" class="form-label">Text</label>
-          <textarea class="form-input" id="post-text" name="post-text">{{post.post_text}}</textarea>
-        </div>
+        <label for="title" class="form-label">Title</label>
+        <input type="text" id="title" class="form-input form-input-title" name="title" value="{{tournament.title}}"/>
       </div>
-      <button type="submit" class="btn">Save Post</button>
-      <button type="button" class="delete-post-btn btn">Delete Post</button>
+      <div>
+        <label for="prize-pool" class="form-label">Prize Pool (USD)</label>
+        <input type="text" id="prize-pool" class="form-input form-input-title" name="prize-pool" value="{{tournament.prize_pool}}"/>
+      </div>
+    </div>
+
+    <div class="tournament-input-row">
+      <div>
+        <label for="start-date" class="form-label">Start Date</label>
+        <input type="date" id="start-date" class="form-input form-input-title" name="start-date" value="{{format_date_dash tournament.start_date}}"/>
+      </div>
+      <div>
+        <label for="end-date" class="form-label">End Date</label>
+        <input type="date" id="end-date" class="form-input form-input-title" name="end-date" value="{{format_date_dash tournament.end_date}}"/>
+      </div>
+    </div>
+
+    <div>
+      <label for="tournament-description" class="form-label">Description</label>
+      <textarea class="form-input" id="tournament-description" name="tournament-description">{{tournament.tournament_description}}</textarea>
+    </div>
+
+    <div>
+      <label for="tournament-rules" class="form-label">Rules</label>
+      <textarea class="form-input" id="tournament-rules" name="tournament-rules">{{tournament.tournament_rules}}</textarea>
+    </div>
+
+     <div class="tournament-input-row">
+      <div>
+        <label for="signup-link" class="form-label">Signup Link</label>
+        <input type="url" id="signup-link" class="form-input form-input-title" name="signup-link" value="{{tournament.signup_link}}"/>
+      </div>
+      <div>
+        <label for="game" class="form-label">Game</label>
+        <select name="game" id="game" class="dropdown form-input form-input-dropdown" value="{{tournament.game.id}}">
+          {{#each games as |game|}}
+          <option value={{game.id}}>{{game.title}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+      <button type="submit" class="btn">Save Tournament</button>
+      <button type="button" class="delete-tournament-btn btn">Delete Tournament</button> 
+
       <div class="comment-count">
-        Posted on {{format_date post.created_at}}
+        Posted on {{format_date tournament.created_at}}
         |
-        <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "comment" post.comments.length}}</a>
+        <a href="/tournaments/{{tournament.id}}">{{tournament.comments.length}} {{format_plural "comment" tournament.comments.length}}</a>
       </div>
     </form>
   </section>
 </article>
 
+<article class="edit-downloads">
+    {{#each tournament.downloads as |download|}}
+  <section class="card card-half">
+    <h2 class="card-header">Edit Download</h2>
+
+    <form class="new-download-form card-body">
+      <div class="tournament-input-row">
+        <div>
+          <label for="download-type" class="form-label">Download Description</label>
+          <input type="text" id="download-type" class="form-input form-input-title" name="download-type" value="{{download.download_type}}"/>
+        </div>
+        <div>
+          <label for="download-link" class="form-label">Download Link</label>
+          <input type="url" id="download-link" class="form-input form-input-title" name="download-link" value="{{download.download_link}}"/>
+        </div>
+      </div>
+
+      <button id="{{download.id}}" type="submit" class="btn">Save Download</button>
+      <button id="{{download.id}}" type="button" class="delete-download-btn btn">Delete Download</button>
+
+    </form>
+  </section>
+  {{/each}}
+</article>
+<!--
 {{> comment-form}}
 
-{{> comments post.comments}}
-
-<script src="/javascript/edit-post.js"></script>
-<script src="/javascript/delete-post.js"></script>
+{{> comments tournament.comments}}
 <script src="/javascript/comment.js"></script>
+-->
+<script src="/javascript/edit-tournament.js"></script>
+<script src="/javascript/delete-tournament.js"></script>
+<script src="/javascript/edit-download.js"></script>
+<script src="/javascript/delete-download.js"></script>

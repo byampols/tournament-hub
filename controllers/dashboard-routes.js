@@ -56,6 +56,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
             id: req.params.id
         },
         attributes: ['id', 'title', 'tournament_description', 'tournament_rules', 'start_date', 'end_date', 'prize_pool', 'signup_link','created_at'],
+        order: [['created_at', 'DESC']],
         include: [
             {
                 model: Comment,
@@ -75,7 +76,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
             },
             {
                 model: Game,
-                attributes: ['title']
+                attributes: ['id', 'title']
             }
         ]
     }).then(dbTournamentData => {
@@ -83,8 +84,17 @@ router.get('/edit/:id', withAuth, (req, res) => {
             res.status(404).json({message: 'No post found with this id'});
             return;
         }
-        const tournament = dbTournamentData.get({plain: true});
-        res.render('edit-post', {tournament, loggedIn: true});
+        Game.findAll({
+            attributes:['id', 'title']
+        }).then(dbGameData => {
+            const tournament = dbTournamentData.get({plain: true});
+            const games = dbGameData.map(game => game.get({plain: true}));
+            res.render('edit-post', {
+                tournament,
+                games,
+                loggedIn: req.session.loggedIn
+            })
+        })
     }).catch(err => {
         console.log(err);
         res.status(500).json(err);

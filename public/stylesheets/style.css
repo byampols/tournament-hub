@@ -195,6 +195,11 @@ ol {
   justify-content:space-evenly;
 }
 
+.edit-downloads {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* CARDS */
 .comments {
   margin-top: 30px;
@@ -207,6 +212,10 @@ ol {
   border: 3px solid var(--primary);
   border-radius: var(--border-radius);
   line-height: 1.5;
+}
+
+.card-half {
+  width: 49.5%;
 }
 
 .card-login {
@@ -303,7 +312,7 @@ ol {
 }
 
 .tournament-input-row div {
-  width: 40%;
+  width: 45%;
 }
 
 .card-edit {
