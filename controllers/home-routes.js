@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
 });
 
 //get only one game
-router.get('/tournaments/:game_id', (req, res) => {
+router.get('/games/:game_id', (req, res) => {
     console.log(req.session);
     Tournament.findAll({
         where: {
