@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { route } = require('.');
 const { Download } = require('../../models');
 const withAuth = require('../../utils/auth');
 
@@ -20,6 +21,26 @@ router.post('/', withAuth, (req, res) => {
             res.status(400).json(err);
         });
     }
+});
+
+router.put('/:id', withAuth, (req, res) => {
+    Download.update({
+        download_link: req.body.download_link,
+        download_type: req.body.download_type
+    }, {
+        where: {
+            id: req.params.id
+        }
+    }).then(dbDownloadData => {
+    if (!dbDownloadData) {
+        res.status(404).json({message: 'No download found with this id'});
+        return;
+    }
+    res.json(dbDownloadData);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 router.delete('/:id', withAuth, (req, res) => {

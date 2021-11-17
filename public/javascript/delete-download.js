@@ -11,8 +11,8 @@ async function deleteFormHandler(event) {
     response.ok ? document.location.reload() : alert(response.statusText);
 }
 
-const allButtons = document.querySelectorAll('.delete-download-btn');
-allButtons.forEach(button => {
+const allDeleteButtons = document.querySelectorAll('.delete-download-btn');
+allDeleteButtons.forEach(button => {
     button.addEventListener('click', deleteFormHandler);
 });
 
