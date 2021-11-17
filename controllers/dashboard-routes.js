@@ -41,7 +41,8 @@ router.get('/', withAuth, (req, res) => {
             res.render('dashboard', {
                 tournaments,
                 games,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                isAdmin: req.session.is_tournament_admin
             })
         })
     }).catch(err => {
@@ -92,7 +93,8 @@ router.get('/edit/:id', withAuth, (req, res) => {
             res.render('edit-post', {
                 tournament,
                 games,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                isAdmin: req.session.is_tournament_admin
             })
         })
     }).catch(err => {

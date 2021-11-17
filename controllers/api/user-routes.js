@@ -107,8 +107,9 @@ router.post('/login', (req, res) => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
             req.session.loggedIn = true;
+            req.session.is_tournament_admin = dbUserData.is_tournament_admin;
     
-            res.json({ user: dbUserData, message: 'You are now logged in!' });
+            res.json({ user: dbUserData, message: 'You are now logged in!'});
         });
     });
 });
@@ -125,9 +126,30 @@ router.post('/logout', withAuth, (req, res) => {
 
 //put /api/users/id
 router.put('/:id', withAuth, (req, res) => {
-    // expects {username: 'XXX', email: 'YYY@gmail.com', password: 'password1234'}
+    // expects {username: 'XXX', email: 'YYY@gmail.com', password: 'password1234', isTournamentAdmin: true}
     // if req.body has exact key/value pairs to match the model, you can just use `req.body` instead
     User.update(req.body, {
+        individualHooks: true,
+        where: {
+            id: req.params.id
+        }
+    }).then(dbUserData => {
+        if (!dbUserData) {
+            res.status(404).json({message: 'No user found with this id'});
+            return;
+        }
+        res.json(dbUserData);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+//Update Admin Status
+router.put(`/${process.env.SV_ADMIN}/:id`, (req, res) => {
+    User.update({
+        is_tournament_admin: req.body.is_tournament_admin
+    }, {
         individualHooks: true,
         where: {
             id: req.params.id

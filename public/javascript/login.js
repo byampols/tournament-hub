@@ -16,7 +16,7 @@ async function signupFormHandler(event) {
             headers: {'Content-Type': 'application/json'}
         });
 
-        response.ok ? document.location.replace('/dashboard') : alert(response.statusText);
+        response.ok ? document.location.replace('/') : alert(response.statusText);
     }
 }
 
@@ -36,7 +36,7 @@ async function loginFormHandler(event) {
             headers: {'Content-Type': 'application/json'}
         });
 
-        response.ok ? document.location.replace('/dashboard') : alert(response.statusText);
+       response.ok ? document.location.replace('/') : alert(response.statusText);
     }
 }
 
