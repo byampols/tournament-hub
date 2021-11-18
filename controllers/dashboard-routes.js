@@ -36,13 +36,20 @@ router.get('/', withAuth, (req, res) => {
         Game.findAll({
             attributes:['id', 'title']
         }).then(dbGameData => {
-            const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
-            const games = dbGameData.map(game => game.get({plain: true}));
-            res.render('dashboard', {
-                tournaments,
-                games,
-                loggedIn: req.session.loggedIn,
-                isAdmin: req.session.is_tournament_admin
+            User.findAll({
+                attributes: ['id', 'username', 'is_tournament_admin', 'is_site_admin']
+            }).then (dbUserData => {
+                const tournaments = dbTournamentData.map(tournament => tournament.get({plain: true}));
+                const games = dbGameData.map(game => game.get({plain: true}));
+                const users = dbUserData.map(user => user.get({plain: true}))
+                res.render('dashboard', {
+                    tournaments,
+                    games,
+                    users,
+                    loggedIn: req.session.loggedIn,
+                    isTournamentAdmin: req.session.is_tournament_admin,
+                    isSiteAdmin: req.session.is_site_admin
+                })
             })
         })
     }).catch(err => {
@@ -94,7 +101,8 @@ router.get('/edit/:id', withAuth, (req, res) => {
                 tournament,
                 games,
                 loggedIn: req.session.loggedIn,
-                isAdmin: req.session.is_tournament_admin
+                isTournamentAdmin: req.session.is_tournament_admin,
+                isSiteAdmin: req.session.is_site_admin
             })
         })
     }).catch(err => {

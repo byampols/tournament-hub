@@ -67,14 +67,16 @@ router.post('/', (req, res) => {
     User.create({
         username: req.body.username,
         email: req.body.email,
+        password: req.body.password,
         is_tournament_admin: req.body.is_tournament_admin,
-        password: req.body.password
+        is_site_admin: req.body.is_site_admin
     }).then(dbUserData => {
         req.session.save(() => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
-            req.session.is_tournament_admin = dbUserData.is_tournament_admin;
             req.session.loggedIn = true;
+            req.session.is_tournament_admin = dbUserData.is_tournament_admin;
+            req.session.is_site_admin = dbUserData.is_site_admin;
     
             res.json(dbUserData);
         });
@@ -92,7 +94,7 @@ router.post('/login', (req, res) => {
         }
     }).then(dbUserData => {
         if (!dbUserData) {
-            res.status(404).json({message: 'No user found with this id'});
+            res.status(404).json({message: 'No user found with this email'});
             return;
         }
 
@@ -106,8 +108,9 @@ router.post('/login', (req, res) => {
         req.session.save(() => {
             req.session.user_id = dbUserData.id;
             req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
             req.session.is_tournament_admin = dbUserData.is_tournament_admin;
+            req.session.is_site_admin = dbUserData.is_site_admin;
+            req.session.loggedIn = true;
     
             res.json({ user: dbUserData, message: 'You are now logged in!'});
         });
@@ -148,7 +151,8 @@ router.put('/:id', withAuth, (req, res) => {
 //Update Admin Status
 router.put(`/${process.env.SV_ADMIN}/:id`, (req, res) => {
     User.update({
-        is_tournament_admin: req.body.is_tournament_admin
+        is_tournament_admin: req.body.is_tournament_admin,
+        is_site_admin: req.body.is_site_admin
     }, {
         individualHooks: true,
         where: {

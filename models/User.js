@@ -29,6 +29,10 @@ User.init(
                 isEmail: true
             }
         },
+        is_site_admin: {
+            type: DataTypes.BOOLEAN,
+            default: false
+        },
         is_tournament_admin: {
             type: DataTypes.BOOLEAN,
             default: false

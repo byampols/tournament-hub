@@ -370,7 +370,25 @@ ol {
   height: auto;
 }
 
-.comment-form {
+.form-checkbox-row {
+  align-items: center;
+  justify-content: center;
+}
+
+.form-checkbox {
+  height: 50%;
+  background-color: var(--primary);
+}
+
+.form-checkbox:hover input ~ .form-checkbox {
+  background-color: var(--secondary);
+}
+
+.form-checkbox-label {
+  font-size: 1.25rem;
+}
+
+.comment-form, .form-checkbox {
   width: 30%;
 }
 

@@ -1,4 +1,39 @@
-{{#if isAdmin}}
+{{#if isSiteAdmin}}
+<section class="card">
+  <h2 class="card-header">Change User Status</h2>
+
+  <form class="user-status-form card-body">
+    <div class="tournament-input-row">
+      <div>
+        <select name="user" id="user" class="dropdown form-input form-input-dropdown">
+          {{#each users as |user|}}
+          <option value={{user.id}}>{{user.username}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="tournament-input-row form-checkbox-row">
+        <label for="is-site-admin" class="form-label form-checkbox-label">Site Admin</label>
+        <input type="checkbox" id="is-site-admin" class="form-input form-input-title form-checkbox" name="is-site-admin"/>
+      </div>
+      <div class="tournament-input-row form-checkbox-row">
+        <label for="is-tournament-admin" class="form-label form-checkbox-label">Tournament Admin</label>
+        <input type="checkbox" id="is-tournament-admin" class="form-input form-input-title form-checkbox" name="is-tournament-admin"/>
+      </div>
+    </div>
+
+    <div class="tournament-input-row">
+
+    </div>
+
+    <div class="btn-div">
+      <button type="submit" class="btn btn-half">Update</button>
+    </div>
+  </form>
+</section>
+{{/if}}
+
+{{#if isTournamentAdmin}}
 <section class="card">
   <h2 class="card-header">Create New Tournament</h2>
 
@@ -100,5 +135,12 @@
 </section>
 {{/if}}
 {{/if}}
+{{#if isSiteAdmin}}
+<script src="/javascript/update-user.js"></script>
+{{/if}}
+
+{{#if isTournamentAdmin}}
 <script src="/javascript/add-tournament.js"></script>
 <script src="/javascript/add-download.js"></script>
+{{/if}}
+

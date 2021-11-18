@@ -39,7 +39,8 @@ router.get('/', (req, res) => {
                 tournaments,
                 games,
                 loggedIn: req.session.loggedIn,
-                isAdmin: req.session.is_tournament_admin
+                isTournamentAdmin: req.session.is_tournament_admin,
+                isSiteAdmin: req.session.is_site_admin
             })
         })
     }).catch(err => {
@@ -89,7 +90,8 @@ router.get('/games/:game_id', (req, res) => {
                 tournaments,
                 games,
                 loggedIn: req.session.loggedIn,
-                isAdmin: req.session.is_tournament_admin
+                isTournamentAdmin: req.session.is_tournament_admin,
+                isSiteAdmin: req.session.is_site_admin
             })
         })
     }).catch(err => {
@@ -143,7 +145,8 @@ router.get('/tournament/:id', (req, res) => {
         res.render('single-post', {
             tournament,
             loggedIn: req.session.loggedIn,
-            isAdmin: req.session.is_tournament_admin
+            isTournamentAdmin: req.session.is_tournament_admin,
+            isSiteAdmin: req.session.is_site_admin
         });
     }).catch(err => {
         console.log(err);

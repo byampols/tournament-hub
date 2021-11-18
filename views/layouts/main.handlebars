@@ -15,8 +15,12 @@
             </h1>
              <nav>
                 <!--<a class="nav-item" href="/">home</a>-->
-                {{#if isAdmin}}
+                {{#if isTournamentAdmin}}
                 <a class="nav-item" href="/dashboard">dashboard</a>
+                {{else}}
+                {{#if isSiteAdmin}}
+                <a class="nav-item" href="/dashboard">dashboard</a>
+                {{/if}}
                 {{/if}}
                 {{#if loggedIn}}
                 <button id="logout" class="btn-no-style nav-item">logout</button>
