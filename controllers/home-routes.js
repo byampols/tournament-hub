@@ -38,9 +38,9 @@ router.get('/', (req, res) => {
             res.render('homepage', {
                 tournaments,
                 games,
-                loggedIn: req.session.loggedIn,
-                isTournamentAdmin: req.session.is_tournament_admin,
-                isSiteAdmin: req.session.is_site_admin
+                loggedIn: req.isAuthenticated(),
+                isTournamentAdmin: req.user?.is_tournament_admin,
+                isSiteAdmin: req.user?.is_site_admin
             })
         })
     }).catch(err => {
@@ -101,10 +101,6 @@ router.get('/games/:game_id', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect('/');
-        return;
-    }
     res.render('login');
 });
 

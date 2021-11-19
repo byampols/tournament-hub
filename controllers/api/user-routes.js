@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Tournament, Comment, Game, Download } = require('../../models');
 const withAuth = require('../../utils/auth');
+const passport = require('passport');
 
 //get api/users
 router.get('/', (req, res) => {
@@ -71,60 +72,38 @@ router.post('/', (req, res) => {
         is_tournament_admin: req.body.is_tournament_admin,
         is_site_admin: req.body.is_site_admin
     }).then(dbUserData => {
-        req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
-            req.session.is_tournament_admin = dbUserData.is_tournament_admin;
-            req.session.is_site_admin = dbUserData.is_site_admin;
-    
-            res.json(dbUserData);
-        });
+        req.login(dbUserData, function(err) {
+            if (err) { return next(err); }
+            res.status(200).json({status: 'ok'});
+          });
     }).catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
     // expects {email: 'YYY@gmail.com', password: 'password1234'}
-    User.findOne({
-        where: {
-            email: req.body.email
-        }
-    }).then(dbUserData => {
-        if (!dbUserData) {
-            res.status(404).json({message: 'No user found with this email'});
-            return;
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+
+        if (!user) {
+            return res.json({status: 'error', message: info.message});
         }
 
-        const validPassword = dbUserData.checkPassword(req.body.password);
-
-        if (!validPassword) {
-            res.status(400).json({ message: 'Incorrect password!' });
-            return;
-        }
-
-        req.session.save(() => {
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.is_tournament_admin = dbUserData.is_tournament_admin;
-            req.session.is_site_admin = dbUserData.is_site_admin;
-            req.session.loggedIn = true;
-    
-            res.json({ user: dbUserData, message: 'You are now logged in!'});
+        req.login(user, function(err) {
+            if (err) { return next(err); }
+            res.status(200).json({status: 'ok'});
         });
-    });
+    })(req, res, next);
 });
 
-router.post('/logout', withAuth, (req, res) => {
-    if (req.session.loggedIn) {
-        req.session.destroy(() => {
-            res.status(204).end();
-        });
-    } else {
-        res.status(404).end();
-    }
+router.post('/logout', withAuth, (req, res, next) => {
+    req.logout();
+    req.session.destroy(err => {
+        if (err) return next(err);
+        return res.send({authenticated: req.isAuthenticated()})
+    });
 });
 
 //put /api/users/id
@@ -171,7 +150,7 @@ router.put(`/${process.env.SV_ADMIN}/:id`, (req, res) => {
 });
 
 //delete /api/users/id
-router.delete('/:id', withAuth, (req, res) => {
+router.delete('/:id', (req, res) => {
     User.destroy({
         where: {
             id: req.params.id

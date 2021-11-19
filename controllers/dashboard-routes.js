@@ -6,7 +6,7 @@ const withAuth = require('../utils/auth');
 router.get('/', withAuth, (req, res) => {
     Tournament.findAll({
         where: {
-            user_id: req.session.user_id
+            user_id: req.user.id
         },
         attributes: ['id', 'title', 'tournament_description', 'tournament_rules', 'start_date', 'end_date', 'prize_pool', 'signup_link','created_at'],
         order: [['created_at', 'DESC']],
@@ -46,9 +46,9 @@ router.get('/', withAuth, (req, res) => {
                     tournaments,
                     games,
                     users,
-                    loggedIn: req.session.loggedIn,
-                    isTournamentAdmin: req.session.is_tournament_admin,
-                    isSiteAdmin: req.session.is_site_admin
+                    loggedIn: req.isAuthenticated(),
+                    isTournamentAdmin: req.user?.is_tournament_admin,
+                    isSiteAdmin: req.user?.is_site_admin
                 })
             })
         })
@@ -100,9 +100,9 @@ router.get('/edit/:id', withAuth, (req, res) => {
             res.render('edit-post', {
                 tournament,
                 games,
-                loggedIn: req.session.loggedIn,
-                isTournamentAdmin: req.session.is_tournament_admin,
-                isSiteAdmin: req.session.is_site_admin
+                loggedIn: req.isAuthenticated(),
+                isTournamentAdmin: req.user?.is_tournament_admin,
+                isSiteAdmin: req.user?.is_site_admin
             })
         })
     }).catch(err => {
