@@ -9,15 +9,32 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-    if (req.session) {
-        Game.create({
-            title: req.body.title
-        }).then(dbGameData => res.json(dbGameData)).catch(err => {
-            console.log(err);
-            res.status(400).json(err);
-        });
+router.post('/', withAuth, (req, res) => {
+    Game.create({
+        title: req.body.title
+    }).then(dbGameData => res.json(dbGameData)).catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+    });
+});
+
+router.put('/:id', withAuth, (req, res) => {
+    Game.update({
+        title: req.body.title
+    }, {
+        where: {
+            id: req.params.id
+        }
+    }).then(dbGameData => {
+    if (!dbGameData) {
+        res.status(404).json({message: 'No game found with this id'});
+        return;
     }
+    res.json(dbGameData);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 router.delete('/:id', withAuth, (req, res) => {

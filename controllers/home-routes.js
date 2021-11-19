@@ -89,9 +89,9 @@ router.get('/games/:game_id', (req, res) => {
             res.render('homepage', {
                 tournaments,
                 games,
-                loggedIn: req.session.loggedIn,
-                isTournamentAdmin: req.session.is_tournament_admin,
-                isSiteAdmin: req.session.is_site_admin
+                loggedIn: req.isAuthenticated(),
+                isTournamentAdmin: req.user?.is_tournament_admin,
+                isSiteAdmin: req.user?.is_site_admin
             })
         })
     }).catch(err => {
@@ -140,9 +140,9 @@ router.get('/tournament/:id', (req, res) => {
         const tournament = dbTournamentData.get({plain: true});
         res.render('single-post', {
             tournament,
-            loggedIn: req.session.loggedIn,
-            isTournamentAdmin: req.session.is_tournament_admin,
-            isSiteAdmin: req.session.is_site_admin
+            loggedIn: req.isAuthenticated(),
+            isTournamentAdmin: req.user?.is_tournament_admin,
+            isSiteAdmin: req.user?.is_site_admin
         });
     }).catch(err => {
         console.log(err);

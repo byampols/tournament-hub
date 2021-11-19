@@ -8,7 +8,16 @@ async function newFormHandler(event) {
     const start_date = document.querySelector('input[name="start-date"]').value;
     const end_date = document.querySelector('input[name="end-date"]').value;
     const signup_link = document.querySelector('input[name="signup-link"]').value;
-    const game_id = document.querySelector('select[name="game"]').value;
+    const game_id = document.querySelector('select[name="game-tournament"]').value;
+
+    if (!title || !tournament_description || !prize_pool || !start_date || !end_date || !signup_link || !game_id) {
+        return;
+    }
+
+    if (new Date(start_date) > new Date(end_date)) {
+        alert("Start date must be before end date.");
+        return;
+    }
 
     const response = await fetch(`/api/tournaments`, {
         method: 'POST',

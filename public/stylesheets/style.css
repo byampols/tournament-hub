@@ -104,6 +104,12 @@ p {
   margin-top: 1%;
 }
 
+.btn-div-col {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1%;
+}
+
 .btn-half {
   width: 50%;
 }
@@ -315,6 +321,10 @@ ol {
   width: 45%;
 }
 
+.game-input-row {
+  padding-bottom: 1%;
+}
+
 .card-edit {
   width: 50%;
   align-self: center;
@@ -390,6 +400,11 @@ ol {
 
 .comment-form, .form-checkbox {
   width: 30%;
+}
+
+.form-update-games {
+  border-top: dashed var(--light-dark);
+  padding-top: 1%;
 }
 
 /* HEIGHT / WIDTH UTILS */

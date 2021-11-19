@@ -22,12 +22,47 @@
       </div>
     </div>
 
-    <div class="tournament-input-row">
-
-    </div>
-
     <div class="btn-div">
       <button type="submit" class="btn btn-half">Update</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2 class="card-header">Manage Games</h2>
+  <form class="game-form card-body"></form>
+    <div class="tournament-input-row game-input-row">
+      <div>
+        <label for="new-game-title" class="form-label">Title</label>
+        <input type="text" id="new-game-title" class="form-input form-input-title" name="new-game-title" />
+      </div>
+
+      <div class="btn-div">
+        <button type="submit" class="add-game-btn btn btn-half">Add Game</button>
+      </div>
+    </div>
+
+    <div class="form-update-games">
+      <div class="tournament-input-row">
+        <div>
+          <label for="game-game" class="form-label">Game</label>
+          <select name="game-game" id="game-game" class="dropdown form-input form-input-dropdown">
+            {{#each games as |game|}}
+            <option value={{game.id}}>{{game.title}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div>
+          <label for="updated-game-title" class="form-label">New Title</label>
+          <input type="text" id="updated-game-title" class="form-input form-input-title" name="updated-game-title" />
+        </div>
+      </div>
+
+      <div class="btn-div btn-div-col">
+        <button id="{{download.id}}" type="submit" class="edit-game-btn btn btn-half">Edit Game</button>
+        <button id="{{download.id}}" type="button" class="delete-game-btn btn btn-half">Delete Game</button>    
+      </div>    
     </div>
   </form>
 </section>
@@ -56,7 +91,7 @@
       </div>
       <div>
         <label for="end-date" class="form-label">End Date</label>
-        <input type="date" id="endt-date" class="form-input form-input-title" name="end-date" />
+        <input type="date" id="end-date" class="form-input form-input-title" name="end-date" />
       </div>
     </div>
 
@@ -76,8 +111,8 @@
         <input type="url" id="signup-link" class="form-input form-input-title" name="signup-link" />
       </div>
       <div>
-        <label for="game" class="form-label">Game</label>
-        <select name="game" id="game" class="dropdown form-input form-input-dropdown">
+        <label for="game-tournament" class="form-label">Game</label>
+        <select name="game-tournament" id="game-tournament" class="dropdown form-input form-input-dropdown">
           {{#each games as |game|}}
           <option value={{game.id}}>{{game.title}}</option>
           {{/each}}
@@ -137,6 +172,7 @@
 {{/if}}
 {{#if isSiteAdmin}}
 <script src="/javascript/update-user.js"></script>
+<script src="/javascript/manage-games.js"></script>
 {{/if}}
 
 {{#if isTournamentAdmin}}

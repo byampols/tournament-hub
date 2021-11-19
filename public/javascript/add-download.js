@@ -5,6 +5,10 @@ async function newFormHandler(event) {
     const download_link = document.querySelector('input[name="download-link"]').value;
     const tournament_id = document.querySelector('select[name="tournament"]').value;
 
+    if (!download_link || !download_type || !tournament_id) {
+        return;
+    }
+
     const response = await fetch(`/api/downloads`, {
         method: 'POST',
         body: JSON.stringify({
