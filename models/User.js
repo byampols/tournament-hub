@@ -52,6 +52,13 @@ User.init(
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
                 return newUserData;
             },
+            async afterCreate(newUserData) {
+                if (newUserData.id === 1) {
+                    newUserData.is_site_admin = true;
+                    newUserData.is_tournament_admin = true;
+                }
+                return newUserData
+            },
             async beforeUpdate(updatedUserData) {
                 if (updatedUserData.changed('password')) {
                     updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
