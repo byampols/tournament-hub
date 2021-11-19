@@ -90,7 +90,7 @@ router.post('/', withAuth, (req, res) => {
         prize_pool: req.body.prize_pool,
         signup_link: req.body.signup_link,
         game_id: req.body.game_id,
-        user_id: req.session.user_id //req.session
+        user_id: req.user?.user_id 
     }).then(dbTournamentData => res.json(dbTournamentData)).catch(err => {
         console.log(err);
         res.status(500).json(err);
