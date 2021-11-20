@@ -11,16 +11,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', withAuth, (req, res) => {
-    if (req.session) {
-        Download.create({
-            download_type: req.body.download_type,
-            download_link: req.body.download_link,
-            tournament_id: req.body.tournament_id
-        }).then(dbDownloadData => res.json(dbDownloadData)).catch(err => {
-            console.log(err);
-            res.status(400).json(err);
-        });
-    }
+    Download.create({
+        download_type: req.body.download_type,
+        download_link: req.body.download_link,
+        tournament_id: req.body.tournament_id
+    }).then(dbDownloadData => res.json(dbDownloadData)).catch(err => {
+        console.log(err);
+        res.status(400).json(err);
+    });
 });
 
 router.put('/:id', withAuth, (req, res) => {
