@@ -1,0 +1,182 @@
+{{#if isSiteAdmin}}
+<section class="card">
+  <h2 class="card-header">Change User Status</h2>
+
+  <form class="user-status-form card-body">
+    <div class="tournament-input-row">
+      <div>
+        <select name="user" id="user" class="dropdown form-input form-input-dropdown">
+          {{#each users as |user|}}
+          <option value={{user.id}}>{{user.username}}</option>
+          {{/each}}
+        </select>
+      </div>
+
+      <div class="tournament-input-row form-checkbox-row">
+        <label for="is-site-admin" class="form-label form-checkbox-label">Site Admin</label>
+        <input type="checkbox" id="is-site-admin" class="form-input form-input-title form-checkbox" name="is-site-admin"/>
+      </div>
+      <div class="tournament-input-row form-checkbox-row">
+        <label for="is-tournament-admin" class="form-label form-checkbox-label">Tournament Admin</label>
+        <input type="checkbox" id="is-tournament-admin" class="form-input form-input-title form-checkbox" name="is-tournament-admin"/>
+      </div>
+    </div>
+
+    <div class="btn-div">
+      <button type="submit" class="btn btn-half">Update</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2 class="card-header">Manage Games</h2>
+  <form class="game-form card-body"></form>
+    <div class="tournament-input-row game-input-row">
+      <div>
+        <label for="new-game-title" class="form-label">Title</label>
+        <input type="text" id="new-game-title" class="form-input form-input-title" name="new-game-title" />
+      </div>
+
+      <div class="btn-div">
+        <button type="submit" class="add-game-btn btn btn-half">Add Game</button>
+      </div>
+    </div>
+
+    <div class="form-update-games">
+      <div class="tournament-input-row">
+        <div>
+          <label for="game-game" class="form-label">Game</label>
+          <select name="game-game" id="game-game" class="dropdown form-input form-input-dropdown">
+            {{#each games as |game|}}
+            <option value={{game.id}}>{{game.title}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div>
+          <label for="updated-game-title" class="form-label">New Title</label>
+          <input type="text" id="updated-game-title" class="form-input form-input-title" name="updated-game-title" />
+        </div>
+      </div>
+
+      <div class="btn-div btn-div-col">
+        <button id="{{download.id}}" type="submit" class="edit-game-btn btn btn-half">Edit Game</button>
+        <button id="{{download.id}}" type="button" class="delete-game-btn btn btn-half">Delete Game</button>    
+      </div>    
+    </div>
+  </form>
+</section>
+{{/if}}
+
+{{#if isTournamentAdmin}}
+<section class="card">
+  <h2 class="card-header">Create New Tournament</h2>
+
+  <form class="new-tournament-form card-body">
+    <div class="tournament-input-row">
+      <div>
+        <label for="title" class="form-label">Title</label>
+        <input type="text" id="title" class="form-input form-input-title" name="title" />
+      </div>
+      <div>
+        <label for="prize-pool" class="form-label">Prize Pool (USD)</label>
+        <input type="text" id="prize-pool" class="form-input form-input-title" name="prize-pool" />
+      </div>
+    </div>
+
+    <div class="tournament-input-row">
+      <div>
+        <label for="start-date" class="form-label">Start Date</label>
+        <input type="date" id="start-date" class="form-input form-input-title" name="start-date" />
+      </div>
+      <div>
+        <label for="end-date" class="form-label">End Date</label>
+        <input type="date" id="end-date" class="form-input form-input-title" name="end-date" />
+      </div>
+    </div>
+
+    <div>
+      <label for="tournament-description" class="form-label">Description</label>
+      <textarea class="form-input" id="tournament-description" name="tournament-description"></textarea>
+    </div>
+
+    <div>
+      <label for="tournament-rules" class="form-label">Rules</label>
+      <textarea class="form-input" id="tournament-rules" name="tournament-rules"></textarea>
+    </div>
+
+     <div class="tournament-input-row">
+      <div>
+        <label for="signup-link" class="form-label">Signup Link</label>
+        <input type="url" id="signup-link" class="form-input form-input-title" name="signup-link" />
+      </div>
+      <div>
+        <label for="game-tournament" class="form-label">Game</label>
+        <select name="game-tournament" id="game-tournament" class="dropdown form-input form-input-dropdown">
+          {{#each games as |game|}}
+          <option value={{game.id}}>{{game.title}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-div">
+      <button type="submit" class="btn btn-half">Create</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2 class="card-header">Add Downloads to Tournament</h2>
+
+  <form class="new-download-form card-body">
+    <div>
+      <label for="tournament" class="form-label">Tournament</label>
+      <select name="tournament" id="tournament" class="dropdown form-input form-input-dropdown">
+        {{#each tournaments as |tournament|}}
+        <option value={{tournament.id}}>{{tournament.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="tournament-input-row">
+      <div>
+        <label for="download-type" class="form-label">Download Description</label>
+        <input type="text" id="download-type" class="form-input form-input-title" name="download-type" />
+      </div>
+      <div>
+        <label for="download-link" class="form-label">Download Link</label>
+        <input type="url" id="download-link" class="form-input form-input-title" name="download-link" />
+      </div>
+    </div>
+
+    <div class="btn-div">
+      <button type="submit" class="btn btn-half">Add</button>
+    </div>
+  </form>
+</section>
+
+{{#if tournaments.length}}
+<section>
+  <h2>Your Tournaments</h2>
+  <ol>
+    {{#each tournaments as |tournament|}}
+    <li class="card">
+      {{> post-info tournament}}
+      <a class="card-edit" href="/dashboard/edit/{{tournament.id}}" class="edit-link">Edit Tournament</a>
+    </li>
+    {{/each}}
+  </ol>
+</section>
+{{/if}}
+{{/if}}
+{{#if isSiteAdmin}}
+<script src="/javascript/update-user.js"></script>
+<script src="/javascript/manage-games.js"></script>
+{{/if}}
+
+{{#if isTournamentAdmin}}
+<script src="/javascript/add-tournament.js"></script>
+<script src="/javascript/add-download.js"></script>
+{{/if}}
+

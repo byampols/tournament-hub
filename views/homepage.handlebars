@@ -1,0 +1,17 @@
+
+<select name="game" id="game" class="dropdown">
+    <option value="all">all</option>
+    {{#each games as |game|}}
+    <option value={{game.id}}>{{game.title}}</option>
+    {{/each}}
+</select>
+
+<ol class="post-list">
+    {{#each tournaments as |tournament|}}
+    <li class="card">
+        {{> post-info tournament }}
+    </li>
+    {{/each}}
+</ol>
+
+<script src="/javascript/show-game.js"></script>

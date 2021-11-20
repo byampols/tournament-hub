@@ -1,0 +1,13 @@
+<div class="card">
+{{> detailed-post-info tournament}}
+</div>
+
+{{#if loggedIn}}
+{{> comment-form}}
+{{/if}}
+
+{{> comments tournament.comments}}
+
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+{{/if}}
