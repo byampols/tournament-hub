@@ -3,8 +3,8 @@
 ## Description
 A site where tournament organizers can post tournaments and players can find all the tournaments (for their game) in one place.
 
-[Visit the site here!](https://pacific-gorge-71355.herokuapp.com/)
-[Github Source Repository](https://github.com/byampols/tournament-hub).
+* [Visit the site here!](https://pacific-gorge-71355.herokuapp.com/)
+* [Github Source Repository](https://github.com/byampols/tournament-hub).
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
