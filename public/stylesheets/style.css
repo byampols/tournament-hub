@@ -723,4 +723,109 @@ ol {
   }
 }
 
+/*MEDIA QUERY*/
+@media screen and (max-width: 992px) {
+  .login-container {
+    flex-direction: column;
+  }
 
+  .card-login {
+    width: 100%;
+  }
+
+  .comment-form {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .app-title {
+    font-size: 2.75rem;
+  }
+
+  .hero nav {
+    float: none;
+    text-align: center;
+    margin-top: 5%;
+  }
+
+  .dropdown {
+    margin-left: 0px;
+  }
+
+  ol {
+    padding: 0px;
+  }
+
+  .card-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-subheader {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tournament-input-row {
+    flex-direction: column;
+  }
+
+  .tournament-input-row div {
+    width: 95%;
+    align-self: center;
+  }
+
+  input.form-checkbox {
+    -moz-transform: scale(2); /* FF */
+    width: 5%;
+    height: 200%;
+  }
+
+  .card-header-comment {
+    text-align: left;
+  }
+
+  .form-label {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app-title {
+    font-size: 2.25rem;
+  }
+
+  .dropdown {
+    width: 100%;
+    padding: .5rem 0;
+  }
+
+  .tournament-header {
+    font-size: 1rem;
+  }
+
+  .card-subheader {
+    font-size: 1rem;
+  }
+
+  .form-input {
+    margin: 10px 0;
+  }
+}
+
+@media screen and (max-width: 342px) {
+  .hero nav {
+    font-size: 1.5rem;
+  }
+
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .card-edit {
+    width: 75%;
+    margin: 10px 0;
+  }
+}
