@@ -228,6 +228,12 @@ ol {
   width: 30%;
 }
 
+.login-error {
+  font-size: 150%;
+  font-style: italic;
+  text-align: center;
+}
+
 .card-comment {
   margin-bottom: 5px;
   margin-top: 5px;

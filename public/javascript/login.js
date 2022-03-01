@@ -4,9 +4,10 @@ async function signupFormHandler(event) {
     const username = document.querySelector('#username-signup').value.trim();
     const email = document.querySelector('#email-signup').value.trim();
     const password = document.querySelector('#password-signup').value.trim();
+    let response = {}
 
     if (username && email && password) {
-        const response = await fetch('/api/users', {
+        await fetch('/api/users', {
             method: 'post',
             body: JSON.stringify({
                 username,
@@ -14,9 +15,15 @@ async function signupFormHandler(event) {
                 password
             }),
             headers: {'Content-Type': 'application/json'}
-        });
+        }).then(res => res.json()).then(data => {
+            response = data;
+        }).catch(error => console.error('Error:', error));
 
-        response.ok ? document.location.replace('/') : alert(response.statusText);
+        console.log(response)
+
+       response.status === "ok" ? document.location.replace('/') : (
+            document.getElementById('signup-err').textContent = response.message ? `${response.message}` : `Invalid Sign Up`
+        ); 
     }
 }
 
@@ -25,18 +32,23 @@ async function loginFormHandler(event) {
 
     const email = document.querySelector('#email-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
+    let response = {};
 
     if (email && password) {
-        const response = await fetch('/api/users/login', {
+        await fetch('/api/users/login', {
             method: 'post',
             body: JSON.stringify({
                 email,
                 password
             }),
             headers: {'Content-Type': 'application/json'}
-        });
+        }).then(res => res.json()).then(data => {
+            response = data;
+        }).catch(error => console.error('Error:', error));
 
-       response.ok ? document.location.replace('/') : alert(response.statusText);
+       response.status === "ok" ? document.location.replace('/') : (
+            document.getElementById('login-err').textContent = `${response.message}`
+        ); 
     }
 }
 
