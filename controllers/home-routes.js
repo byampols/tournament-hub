@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 const { User, Tournament, Comment, Game, Download } = require('../models');
 
 router.get('/', (req, res) => {
-    console.log(req.session);
+    // console.log(req.session);
     Tournament.findAll({
         attributes: ['id', 'title', 'tournament_description', 'tournament_rules', 'start_date', 'end_date', 'prize_pool', 'signup_link','created_at'],
         order: [['created_at', 'DESC']],
@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
 
 //get only one game
 router.get('/games/:game_id', (req, res) => {
-    console.log(req.session);
+    // console.log(req.session);
     Tournament.findAll({
         where: {
             game_id: req.params.game_id

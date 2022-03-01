@@ -26,6 +26,7 @@
                 <button id="logout" class="btn-no-style nav-item">logout</button>
                 {{else}}
                 <a class="nav-item" href="/login">login</a>
+                <button id="guest-login" class="btn-no-style nav-item">guest login</button>
                 {{/if}}
             </nav>
         </header>
@@ -36,6 +37,9 @@
 
         <footer></footer>
     </div>
+    {{#unless loggedIn}}
+    <script src="/javascript/login-guest.js"></script>
+    {{/unless}}
     {{#if loggedIn}}
     <script src="/javascript/logout.js"></script>
     {{/if}}
